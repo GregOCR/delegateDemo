@@ -16,7 +16,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        calculator.delegate = self
+        calculator.didUpdateOperation = { [weak self] operation in
+            self?.operationLabel.text = operation
+        }
     }
     
     @IBAction func didTapOnNumberButton(_ sender: UIButton) {
@@ -26,13 +28,6 @@ class ViewController: UIViewController {
         else { return }
         
         calculator.addNumber(number: number)
-    }
-    
-}
-
-extension ViewController: CalculatorProtocol {
-    func didUpdateOperation(operation: String) {
-        operationLabel.text = operation
     }
     
 }

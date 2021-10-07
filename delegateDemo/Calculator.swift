@@ -7,9 +7,6 @@
 
 import Foundation
 
-protocol CalculatorProtocol: AnyObject {
-    func didUpdateOperation(operation: String)
-}
 
 
 enum CalculatorError: Error {
@@ -20,7 +17,7 @@ class Calculator {
         
     private var operation: String = "" {
         didSet {
-            delegate?.didUpdateOperation(operation: operation)
+            didUpdateOperation?(operation)
         }
     }
     
@@ -41,5 +38,6 @@ class Calculator {
         operation += mathOperator
     }
     
-    weak var delegate: CalculatorProtocol?
+    var didUpdateOperation: ((String) -> Void)?
+    
 }
